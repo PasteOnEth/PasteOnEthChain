@@ -3,7 +3,6 @@ var PasteOnEthProxy = artifacts.require("PasteOnEthProxy");
 
 module.exports = async function(deployer, network, accounts) {
 
-  // await deployer.deploy(PasteOnEthImpl, "initial store");
   await deployer.deploy(PasteOnEthImpl);
   const pasteOnEthInstance = await PasteOnEthImpl.deployed();
   console.log("Deployed PasteOnEth at address", pasteOnEthInstance.address);
