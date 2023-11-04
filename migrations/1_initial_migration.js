@@ -1,16 +1,25 @@
-var PasteOnEth = artifacts.require("pasteOnEth");
-var PasteOnEthFactory = artifacts.require("pasteOnEthFactory");
+var PasteOnEthImpl = artifacts.require("PasteOnEthImpl");
+var PasteOnEthProxy = artifacts.require("PasteOnEthProxy");
 
 module.exports = async function(deployer, network, accounts) {
-  const deployerAccount = accounts[0];
 
-  await deployer.deploy(PasteOnEth);
-  const pasteOnEthInstance = await PasteOnEth.deployed();
-
+  // await deployer.deploy(PasteOnEthImpl, "initial store");
+  await deployer.deploy(PasteOnEthImpl);
+  const pasteOnEthInstance = await PasteOnEthImpl.deployed();
   console.log("Deployed PasteOnEth at address", pasteOnEthInstance.address);
 
-  await deployer.deploy(PasteOnEthFactory, pasteOnEthInstance.address);
-  const pasteOnEthFactoryInstance = await pasteOnEthInstance.deployed();
+  const pasteData = web3.eth.abi.encodeFunctionCall({
+    name: 'initialize',
+    type: 'function',
+    inputs: [
+        {
+            type: 'string',
+            name: 'initStore',
+        },
+    ],
+}, ["test paste"]);
 
-  console.log("Deployed PasteOnEthFactory at address", pasteOnEthFactoryInstance.address);
+  await deployer.deploy(PasteOnEthProxy, pasteOnEthInstance.address, pasteData, {from: accounts[1]});
+  const pasteOnEthProxyInstance = await PasteOnEthProxy.deployed();
+  console.log("Deployed PasteOnEthProxy at address", pasteOnEthProxyInstance.address);
 };
