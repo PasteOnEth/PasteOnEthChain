@@ -13,24 +13,13 @@ contract('PasteOnEthContract', function (accounts) {
     });
   });
 
-  it("Non-admin should not be able to transfer admin for PasteOnEth implementation contract", function() {
-    return pasteOnEthInstance.transferAdmin.call(accounts[2], {from: accounts[1]})
+  it("PasteOnEth Implementation contract should not have an owner", function() {
+    return pasteOnEthInstance.owner.call()
     .then(function (response) {
-      console.log("should not expect a response but is ", response);
-      assert(false == true);
+      assert(response == "0x0000000000000000000000000000000000000000");
     })
     .catch((err) => {
-      assert(true == true);
-    });
-  });
-
-  it("Admin should be able to transfer admin for PasteOnEth implementation contract", function() {
-    return pasteOnEthInstance.transferAdmin.call(accounts[1], {from: accounts[0]})
-    .then(function (response) {
-      assert(true == true);
-    })
-    .catch((err) => {
-      console.log("should not expect an error but is ", err);
+      console.log("Not expecting an error but got ", err);
       assert(false == true);
     });
   });
@@ -65,6 +54,17 @@ contract('PasteOnEthContract', function (accounts) {
     })
     .catch((err) => {
       assert(true == true);
+    });
+  });
+
+  it("PasteOnEth Implementation contract should have the correct proxiable UUID as defined in ERC-1967", function() {
+    return pasteOnEthInstance.proxiableUUID.call()
+    .then(function (response) {
+      assert(response == "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc");
+    })
+    .catch((err) => {
+      console.log("Did not expect an error but got ", err);
+      assert(true == false);
     });
   });
 });

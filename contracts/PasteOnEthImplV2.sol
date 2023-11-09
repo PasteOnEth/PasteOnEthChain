@@ -5,12 +5,10 @@ import "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 
-contract PasteOnEthImpl is UUPSUpgradeable, Initializable, OwnableUpgradeable {
+contract PasteOnEthImplV2 is UUPSUpgradeable, Initializable, OwnableUpgradeable {
     string public store;
-    address private admin;
 
     constructor () {
-        admin = msg.sender;
         _disableInitializers();
     }
 
@@ -20,7 +18,7 @@ contract PasteOnEthImpl is UUPSUpgradeable, Initializable, OwnableUpgradeable {
     }
 
     function changeStore(string memory newStore) external onlyProxy() onlyOwner() {
-        store = newStore;
+        store = string(abi.encodePacked(newStore, " V2"));
     }
 
     function _authorizeUpgrade(address) internal override onlyOwner {}
