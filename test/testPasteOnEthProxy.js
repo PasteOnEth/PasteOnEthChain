@@ -244,7 +244,7 @@ contract('PasteOnEthProxyContract', function (accounts) {
     });
   });
 
-  // This test must be executed at the end since it voids the owner 
+  // This test must be executed at the end since it voids the owner of the proxy 
   it("PasteOnEth proxy must reset the owner after calling renounceOwnership from owner's account", function() {
     return pasteOnEthProxyInstance.methods.renounceOwnership().send({from: accounts[1]})
     .then(function (response) {
