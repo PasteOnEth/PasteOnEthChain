@@ -6,7 +6,7 @@ module.exports = async function(deployer, network, accounts) {
 
   await deployer.deploy(PasteOnEthImpl);
   const pasteOnEthInstance = await PasteOnEthImpl.deployed();
-  console.log("Deployed PasteOnEth at address", pasteOnEthInstance.address);
+  console.log("Deployed PasteOnEth Implementation at address", pasteOnEthInstance.address);
 
   await deployer.deploy(PasteOnEthImplV2);
   const pasteOnEthV2Instance = await PasteOnEthImplV2.deployed();
@@ -24,11 +24,11 @@ module.exports = async function(deployer, network, accounts) {
     ],
   }, ["test paste"]);
 
-  await deployer.deploy(PasteOnEthProxy, pasteOnEthInstance.address, pasteData, {from: accounts[1]});
-  const pasteOnEthProxy1Instance = await PasteOnEthProxy.deployed();
-  console.log("Deployed PasteOnEthProxy 1 at address", pasteOnEthProxy1Instance.address);
-
   await deployer.deploy(PasteOnEthProxy, pasteOnEthV2Instance.address, pasteData, {from: accounts[2]});
   const pasteOnEthProxy2Instance = await PasteOnEthProxy.deployed();
-  console.log("Deployed PasteOnEthProxy 2 at address", pasteOnEthProxy2Instance.address);
+  console.log("Deployed PasteOnEthProxy V2 at address", pasteOnEthProxy2Instance.address);
+
+  await deployer.deploy(PasteOnEthProxy, pasteOnEthInstance.address, pasteData, {from: accounts[1]});
+  const pasteOnEthProxy1Instance = await PasteOnEthProxy.deployed();
+  console.log("Deployed PasteOnEthProxy V1 at address", pasteOnEthProxy1Instance.address);
 };
