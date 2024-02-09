@@ -15,7 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.2",
-    "@openzeppelin/contracts-upgradeable": "^4.9.2"
+    "@openzeppelin/contracts-upgradeable": "^4.9.2",
+    "truffle-flattener": "^1.6.0"
   },
   "devDependencies": {
     "@openzeppelin/truffle-upgrades": "^1.21.0",

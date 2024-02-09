@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts@4.9.2/proxy/utils/UUPSUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable@4.9.2/access/OwnableUpgradeable.sol";
 
 /**
 @title A smart contract to save pastes from pasteoneth.com to eth
